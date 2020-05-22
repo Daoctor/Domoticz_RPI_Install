@@ -14,7 +14,7 @@
 #
 # Install with this command (from your Pi):
 #
-# curl -L install.domoticz.com | bash
+# curl -L raw.githubusercontent.com/Daoctor/Domoticz_RPI_Install/master/install.sh | bash
 
 set -e
 ######## VARIABLES #########
@@ -71,7 +71,7 @@ else
 
 	if [ -x "$(command -v sudo)" ]; then
 		echo "::: Utility sudo located."
-		exec curl -sSL https://install.domoticz.com | sudo bash "$@"
+		exec curl -sSL https://raw.githubusercontent.com/Daoctor/Domoticz_RPI_Install/master/install.sh | sudo bash "$@"
 		exit $?
 	else
 		echo "::: sudo is needed for the Web interface to run domoticz commands.  Please run this script as root and it will be automatically installed."
@@ -196,7 +196,7 @@ verifyFreeDiskSpace() {
 		echo "::: We were unable to determine available free disk space on this system."
 		echo "::: You may override this check and force the installation, however, it is not recommended"
 		echo "::: To do so, pass the argument '--i_do_not_follow_recommendations' to the install script"
-		echo "::: eg. curl -L https://install.domoticz.com | bash /dev/stdin --i_do_not_follow_recommendations"
+		echo "::: eg. curl -L https://raw.githubusercontent.com/Daoctor/Domoticz_RPI_Install/master/install.sh | bash /dev/stdin --i_do_not_follow_recommendations"
 		exit 1
 	# - Insufficient free disk space
 	elif [[ ${existing_free_kilobytes} -lt ${required_free_kilobytes} ]]; then
@@ -205,7 +205,7 @@ verifyFreeDiskSpace() {
 		echo "::: You only have ${existing_free_kilobytes} KiloBytes free."
 		echo "::: If this is a new install you may need to expand your disk."
 		echo "::: Try running 'sudo raspi-config', and choose the 'expand file system option'"
-		echo "::: After rebooting, run this installation again. (curl -L https://install.domoticz.com | bash)"
+		echo "::: After rebooting, run this installation again. (curl -L https://raw.githubusercontent.com/Daoctor/Domoticz_RPI_Install/master/install.sh | bash)"
 
 		echo "Insufficient free space, exiting..."
 		exit 1
@@ -374,7 +374,7 @@ downloadDomoticzWeb() {
 		chown "${Current_user}":"${Current_user}" $Dest_folder
 	fi
 	cd $Dest_folder
-	wget -O domoticz_release.tgz "http://www.domoticz.com/download.php?channel=release&type=release&system=${OS}&machine=${MACH}"
+	wget -O domoticz_release.tgz "https://github.com/Daoctor/Domoticz_RPI_Install/raw/master/resource/domoticz_linux_${MACH}.tgz"
 	echo "::: Unpacking Domoticz..."
 	tar xvfz domoticz_release.tgz
 	rm domoticz_release.tgz
